@@ -55,16 +55,16 @@
 
                 for(int i = 0; i< bodyParts;i++) {
                     if(i == 0) {
-                        g.setColor(Color.green);
+                        g.setColor(Color.LIGHT_GRAY);
                         g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                     }
                     else {
-                        g.setColor(new Color(45,180,0));
+                        g.setColor(Color.GREEN);
                         g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                     }
                 }
-                g.setColor(Color.red);
-                g.setFont( new Font("Ink Free",Font.BOLD, 40));
+                g.setColor(Color.BLUE);
+                g.setFont( new Font("David",Font.BOLD, 40));
                 FontMetrics metrics = getFontMetrics(g.getFont());
                 g.drawString("Score: "+applesEaten, (GAMEPANELWIDTH - metrics.stringWidth("Score: "+applesEaten))/2, g.getFont().getSize());
             }
@@ -135,16 +135,12 @@
             }
         }
         public void gameOver(Graphics g) {
-            //Score
-            g.setColor(Color.red);
-            g.setFont( new Font("Ink Free",Font.BOLD, 40));
-            FontMetrics metrics1 = getFontMetrics(g.getFont());
-            g.drawString("Score: "+applesEaten, (GAMEPANELWIDTH - metrics1.stringWidth("Score: "+applesEaten))/2, g.getFont().getSize());
-            //Game Over text
-            g.setColor(Color.red);
-            g.setFont( new Font("Ink Free",Font.BOLD, 75));
-            FontMetrics metrics2 = getFontMetrics(g.getFont());
-            g.drawString("Game Over", ( GAMEPANELWIDTH- metrics2.stringWidth("Game Over"))/2, GAMEPANELHEIGHT/2);
+            g.setColor(Color.WHITE);
+            g.setFont( new Font("David",Font.BOLD, 75));
+            FontMetrics metrics= getFontMetrics(g.getFont());
+            g.drawString("Game Over", ( GAMEPANELWIDTH- metrics.stringWidth("Game Over"))/2, GAMEPANELHEIGHT/2-70);
+            g.drawString("Your final score is: "+applesEaten, (GAMEPANELWIDTH - metrics.stringWidth("Your final score is: "+applesEaten))/2,GAMEPANELHEIGHT/2);
+            g.drawString("press enter to try again", (GAMEPANELWIDTH - metrics.stringWidth("press enter to try again"))/2,GAMEPANELHEIGHT/2+70);
         }
         @Override
         public void actionPerformed(ActionEvent e) {
