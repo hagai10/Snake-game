@@ -14,10 +14,6 @@
         static final int DELAY = 150;
         final int x[] = new int[GAME_UNITS];
         final int y[] = new int[GAME_UNITS];
-
-       // final int DEFEULTWIDTE = 100;
-
-       // final int DEFEULTHEIGHT= 40;
         int bodyParts = 6;
         int applesEaten;
         int appleX;
