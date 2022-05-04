@@ -12,12 +12,12 @@
         static final int UNIT_SIZE = 50;
         static final int GAME_UNITS = (GAMEPANELWIDTH*GAMEPANELHEIGHT)/UNIT_SIZE;
         static final int DELAY = 150;
-        final int x[] = new int[GAME_UNITS];
-        final int y[] = new int[GAME_UNITS];
-        int bodyParts = 6;
-        int applesEaten;
-        int appleX;
-        int appleY;
+        static final int x[] = new int[GAME_UNITS];
+        static final int y[] = new int[GAME_UNITS];
+        static int bodyParts = 6;
+        static int applesEaten;
+        static int appleX;
+        static int appleY;
         static char direction = 'R';
         boolean running = false;
         Timer timer;
@@ -51,7 +51,7 @@
 
                 for(int i = 0; i< bodyParts;i++) {
                     if(i == 0) {
-                        g.setColor(Color.LIGHT_GRAY);
+                        g.setColor(Color.RED);
                         g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                     }
                     else {
@@ -136,7 +136,7 @@
             FontMetrics metrics= getFontMetrics(g.getFont());
             g.drawString("Game Over", ( GAMEPANELWIDTH- metrics.stringWidth("Game Over"))/2, GAMEPANELHEIGHT/2-70);
             g.drawString("Your final score is: "+applesEaten, (GAMEPANELWIDTH - metrics.stringWidth("Your final score is: "+applesEaten))/2,GAMEPANELHEIGHT/2);
-            g.drawString("press enter to try again", (GAMEPANELWIDTH - metrics.stringWidth("press enter to try again"))/2,GAMEPANELHEIGHT/2+70);
+            g.drawString("Press enter to try again", (GAMEPANELWIDTH - metrics.stringWidth("Press enter to try again"))/2,GAMEPANELHEIGHT/2+70);
         }
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -148,8 +148,6 @@
             }
             repaint();
         }
-
-
     }
 
 
