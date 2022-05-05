@@ -6,11 +6,11 @@
         import java.util.Random;
 
     public class GamePanel extends JPanel implements ActionListener {
-        static final int GAMEPANELWIDTH = 1280;
-        static final int GAMEPANELHEIGHT = 720;
-        static final int PANELWIDTH = 1260;
-        static final int PANELHEIGHT = 700;
-        static final int UNIT_SIZE = 50;
+        static final int GAMEPANELWIDTH = 1250;
+        static final int GAMEPANELHEIGHT = 700;
+        static final int PANELWIDTH = 1230;
+        static final int PANELHEIGHT = 680;
+        static  final int UNIT_SIZE = 50;
         static final int GAME_UNITS = (PANELWIDTH * PANELHEIGHT) / UNIT_SIZE;
         static final int DELAY = 150;
         static final int x[] = new int[GAME_UNITS];
@@ -21,10 +21,14 @@
         static int appleY;
         static char direction = 'R';
         static boolean running = false;
-        static Timer timer;
+         Timer timer;
         Random random;
 
         public GamePanel() {
+            for(int i=0; i<x.length; i++)
+                x[i]=10;
+            for(int i=0; i<y.length; i++)
+                y[i]=10;
             random = new Random();
             this.setPreferredSize(new Dimension(GAMEPANELWIDTH, GAMEPANELHEIGHT));
             this.setBackground(Color.black);
@@ -46,12 +50,20 @@
         }
 
         public void draw(Graphics g) {
-
+                g.setColor(Color.YELLOW);
+                g.fillRect(0,0,10, GAMEPANELHEIGHT);
+                g.fillRect(0,0,GAMEPANELWIDTH, 10);
+                g.fillRect(1225,0,10, GAMEPANELHEIGHT);
+                g.fillRect(0,652,GAMEPANELWIDTH, 10);
             if (running) {
-
-                g.setColor(Color.red);
-                g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
-
+                if(applesEaten%5==0 && applesEaten!=0){
+                    g.setColor(Color.orange);
+                    g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+                }
+                else {
+                    g.setColor(Color.red);
+                    g.fillOval(appleX, appleY, UNIT_SIZE, UNIT_SIZE);
+                }
                 for (int i = 0; i < bodyParts; i++) {
                     if (i == 0) {
                         g.setColor(Color.RED);
@@ -72,8 +84,8 @@
         }
 
         public void newApple() {
-            appleX = random.nextInt((int) (PANELWIDTH / UNIT_SIZE)) * UNIT_SIZE;
-            appleY = random.nextInt((int) (PANELHEIGHT / UNIT_SIZE)) * UNIT_SIZE;
+            appleX = random.nextInt((int) (PANELWIDTH / UNIT_SIZE)) * UNIT_SIZE+10;
+            appleY = random.nextInt((int) (PANELHEIGHT / UNIT_SIZE)) * UNIT_SIZE+10;
         }
 
         public void move() {
@@ -102,6 +114,9 @@
         public void checkApple() {
             if ((x[0] == appleX) && (y[0] == appleY)) {
                 bodyParts++;
+                if(applesEaten%5==0 && applesEaten!=0)
+                    applesEaten =applesEaten+3;
+                else
                 applesEaten++;
                 newApple();
             }
@@ -188,9 +203,9 @@
                         bodyParts=6;
                         direction='R';
                         for(int i=0; i<x.length; i++)
-                            x[i]=0;
+                            x[i]=10;
                         for(int i=0; i<y.length; i++)
-                            y[i]=0;
+                            y[i]=10;
                         repaint();
                         startGame();
 
