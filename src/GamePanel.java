@@ -13,35 +13,49 @@
         static final int DELAY = 150;
         static final int x[] = new int[GAME_UNITS];
         static final int y[] = new int[GAME_UNITS];
-        static int bodyParts = 6;
+        static int bodyParts ;
         static int applesEaten;
         static int appleX;
         static int appleY;
-        static char direction = 'R';
+        static char direction ;
         static boolean running = false;
-         Timer timer;
+
+        JButton play;
+
+        JButton exit;
+
+        Timer timer;
         Random random;
 
         public GamePanel() {
-            for(int i=0; i<x.length; i++)
-                x[i]=50;
-            for(int i=0; i<y.length; i++)
-                y[i]=50;
             random = new Random();
             this.setPreferredSize(new Dimension(GAMEPANELWIDTH, GAMEPANELHEIGHT));
             this.setBackground(Color.black);
             this.setFocusable(true);
             this.addKeyListener(new MyKeyAdapter());
-            startGame();
         }
-       /* public  void letsPlay(Graphics g ){
-            g.setColor(Color.orange);
-            g.setFont(new Font("Kristen ITC", Font.BOLD, 70));
-            FontMetrics metrics = getFontMetrics(g.getFont());
-            g.drawString("Welcome", (GAMEPANELWIDTH - metrics.stringWidth("Welcme")) / 2, GAMEPANELHEIGHT / 2 - 35);
-            g.drawString("Press enter to began", (GAMEPANELWIDTH - metrics.stringWidth("Press enter to began")) / 2, GAMEPANELHEIGHT / 2 +35);
-        }*/
+        public  void letsPlay(Graphics g) {
+            play=new JButton("Play");
+            play.setBounds(GAMEPANELWIDTH/2-150,GAMEPANELHEIGHT/2+75,300,50);
+            this.add(play);
+            play.addActionListener((event)->{
+                startGame();
+            });
+            exit =new JButton("Exit");
+            play.setBounds(GAMEPANELWIDTH/2-150,GAMEPANELHEIGHT/2,300,50);
+            this.add(play);
+            play.addActionListener((event)->{
+                System.exit(0);
+            });
+        }
         public void startGame() {
+            applesEaten=0;
+            bodyParts=6;
+            direction='R';
+            for(int i=0; i<x.length; i++)
+                x[i]=50;
+            for(int i=0; i<y.length; i++)
+                y[i]=50;
             newApple();
             running = true;
             timer = new Timer(DELAY, this);
@@ -81,7 +95,13 @@
                 g.setFont(new Font("Kristen ITC", Font.BOLD, 40));
                 FontMetrics metrics = getFontMetrics(g.getFont());
                 g.drawString("Score: " + applesEaten, (GAMEPANELWIDTH - metrics.stringWidth("Score: " + applesEaten)) / 2, g.getFont().getSize());
-            } else {
+                if((applesEaten-3)%5==0 && applesEaten!=3){
+                    g.setColor(Color.gray);
+                    g.setFont(new Font("Kristen ITC", Font.BOLD, 40));
+                    g.drawString("Gold apple" , (GAMEPANELWIDTH - metrics.stringWidth("Gold apple")) / 2+200, g.getFont().getSize());
+                }
+            }
+            else {
                 gameOver(g);
             }
 
@@ -202,18 +222,8 @@
                         break;
                 }
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                    if(!running){
-                        applesEaten=0;
-                        bodyParts=6;
-                        direction='R';
-                        for(int i=0; i<x.length; i++)
-                            x[i]=50;
-                        for(int i=0; i<y.length; i++)
-                            y[i]=50;
-                        repaint();
+                    if(!running)
                         startGame();
-
-                    }
 
                 }
             }
