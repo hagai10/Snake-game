@@ -6,12 +6,10 @@
         import java.util.Random;
 
     public class GamePanel extends JPanel implements ActionListener {
-        static final int GAMEPANELWIDTH = 1250;
+        static final int GAMEPANELWIDTH = 1300;
         static final int GAMEPANELHEIGHT = 700;
-        static final int PANELWIDTH = 1230;
-        static final int PANELHEIGHT = 680;
         static  final int UNIT_SIZE = 50;
-        static final int GAME_UNITS = (PANELWIDTH * PANELHEIGHT) / UNIT_SIZE;
+        static final int GAME_UNITS = (GAMEPANELWIDTH * GAMEPANELHEIGHT) / UNIT_SIZE;
         static final int DELAY = 150;
         static final int x[] = new int[GAME_UNITS];
         static final int y[] = new int[GAME_UNITS];
@@ -26,9 +24,9 @@
 
         public GamePanel() {
             for(int i=0; i<x.length; i++)
-                x[i]=10;
+                x[i]=50;
             for(int i=0; i<y.length; i++)
-                y[i]=10;
+                y[i]=50;
             random = new Random();
             this.setPreferredSize(new Dimension(GAMEPANELWIDTH, GAMEPANELHEIGHT));
             this.setBackground(Color.black);
@@ -36,7 +34,13 @@
             this.addKeyListener(new MyKeyAdapter());
             startGame();
         }
-
+       /* public  void letsPlay(Graphics g ){
+            g.setColor(Color.orange);
+            g.setFont(new Font("Kristen ITC", Font.BOLD, 70));
+            FontMetrics metrics = getFontMetrics(g.getFont());
+            g.drawString("Welcome", (GAMEPANELWIDTH - metrics.stringWidth("Welcme")) / 2, GAMEPANELHEIGHT / 2 - 35);
+            g.drawString("Press enter to began", (GAMEPANELWIDTH - metrics.stringWidth("Press enter to began")) / 2, GAMEPANELHEIGHT / 2 +35);
+        }*/
         public void startGame() {
             newApple();
             running = true;
@@ -51,10 +55,10 @@
 
         public void draw(Graphics g) {
                 g.setColor(Color.YELLOW);
-                g.fillRect(0,0,10, GAMEPANELHEIGHT);
-                g.fillRect(0,0,GAMEPANELWIDTH, 10);
-                g.fillRect(1225,0,10, GAMEPANELHEIGHT);
-                g.fillRect(0,652,GAMEPANELWIDTH, 10);
+                g.fillRect(0,0,50, GAMEPANELHEIGHT);
+                g.fillRect(0,0,GAMEPANELWIDTH, 50);
+                g.fillRect(GAMEPANELWIDTH-50,0,50, GAMEPANELHEIGHT);
+                g.fillRect(0,GAMEPANELHEIGHT-50,GAMEPANELWIDTH, 50);
             if (running) {
                 if(applesEaten%5==0 && applesEaten!=0){
                     g.setColor(Color.orange);
@@ -67,10 +71,10 @@
                 for (int i = 0; i < bodyParts; i++) {
                     if (i == 0) {
                         g.setColor(Color.RED);
-                        g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+                        g.fillOval(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                     } else {
                         g.setColor(Color.GREEN);
-                        g.fillRect(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
+                        g.fillOval(x[i], y[i], UNIT_SIZE, UNIT_SIZE);
                     }
                 }
                 g.setColor(Color.gray);
@@ -84,8 +88,8 @@
         }
 
         public void newApple() {
-            appleX = random.nextInt((int) (PANELWIDTH / UNIT_SIZE)) * UNIT_SIZE+10;
-            appleY = random.nextInt((int) (PANELHEIGHT / UNIT_SIZE)) * UNIT_SIZE+10;
+            appleX = random.nextInt((int) (GAMEPANELWIDTH/ UNIT_SIZE)-2)* UNIT_SIZE+UNIT_SIZE;
+            appleY = random.nextInt((int) (GAMEPANELHEIGHT/ UNIT_SIZE)-2) * UNIT_SIZE+UNIT_SIZE;
         }
 
         public void move() {
@@ -130,19 +134,19 @@
                 }
             }
             //check if head touches left border
-            if (x[0] < 0) {
+            if (x[0] < 50) {
                 running = false;
             }
             //check if head touches right border
-            if (x[0] > GAMEPANELWIDTH) {
+            if (x[0] >= GAMEPANELWIDTH-50) {
                 running = false;
             }
             //check if head touches top border
-            if (y[0] < 0) {
+            if (y[0] < 50) {
                 running = false;
             }
             //check if head touches bottom border
-            if (y[0] > GAMEPANELHEIGHT) {
+            if (y[0] >= GAMEPANELHEIGHT-50) {
                 running = false;
             }
 
@@ -153,7 +157,7 @@
 
         public void gameOver(Graphics g) {
             g.setColor(Color.orange);
-            g.setFont(new Font("Kristen ITC", Font.BOLD, 75));
+            g.setFont(new Font("Kristen ITC", Font.BOLD, 70));
             FontMetrics metrics = getFontMetrics(g.getFont());
             g.drawString("Game Over", (GAMEPANELWIDTH - metrics.stringWidth("Game Over")) / 2, GAMEPANELHEIGHT / 2 - 70);
             g.drawString("Your final score is: " + applesEaten, (GAMEPANELWIDTH - metrics.stringWidth("Your final score is: " + applesEaten)) / 2, GAMEPANELHEIGHT / 2);
@@ -203,9 +207,9 @@
                         bodyParts=6;
                         direction='R';
                         for(int i=0; i<x.length; i++)
-                            x[i]=10;
+                            x[i]=50;
                         for(int i=0; i<y.length; i++)
-                            y[i]=10;
+                            y[i]=50;
                         repaint();
                         startGame();
 
