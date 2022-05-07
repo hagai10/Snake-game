@@ -9,7 +9,7 @@
             this.setTitle("Snake");
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setResizable(false);
-            this.setSize(GamePanel.GAMEPANELWIDTH,GamePanel.GAMEPANELHEIGHT);
+            this.pack();
             this.setVisible(true);
             this.setLocationRelativeTo(null);
 
