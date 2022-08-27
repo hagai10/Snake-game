@@ -124,11 +124,11 @@
                     g.setFont(new Font("Kristen ITC", Font.BOLD, 40));
                     g.drawString("Bonus!!", ((PANELWIDTH - metrics.stringWidth("Score: " + Score)) / 2) + 200, g.getFont().getSize());
                 }
-
-
             }
             if (!running && welcome)
                 gameOver(g);
+
+
         }
 
         public void newApple() {
@@ -177,9 +177,10 @@
         }
 
         public void gameOver(Graphics g) {
-            g.setColor(Color.orange);
+            g.setColor(Color.blue);
             g.setFont(new Font("Kristen ITC", Font.BOLD, 70));
             FontMetrics metrics = getFontMetrics(g.getFont());
+            g.drawImage(backgrond_Game.getImage(), 0, 0, null);
             g.drawString("Game Over", (PANELWIDTH - metrics.stringWidth("Game Over")) / 2, PANELHEIGHT / 2 - 70);
             g.drawString("Your final score is: " + Score, (PANELWIDTH - metrics.stringWidth("Your final score is: " + Score)) / 2, PANELHEIGHT / 2);
             g.drawString("Press enter to try again", (PANELWIDTH - metrics.stringWidth("Press enter to try again")) / 2,PANELHEIGHT / 2 + 70);
